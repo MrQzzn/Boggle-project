@@ -1,0 +1,33 @@
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class BoggleMain {
+
+	public static void main(String[] args) {
+		BoggleBoard board = new BoggleBoard();
+		board.printBoard();
+		while (true){
+			Scanner read = new Scanner(System.in);
+			System.out.println("word:");
+			String input = read.nextLine();
+			if (input.length() < 1){
+				return;
+			}
+			boolean found = false;
+			for (int i = 0; i < 4; i ++){
+				for (int j = 0; j < 4 && !found; j ++){
+					BogglePoint point = new BogglePoint(i,j);
+					int pos = 0;
+					char[] word = input.toCharArray();
+					if (board.onBoard(point, word, pos)){
+						System.out.println("onboard"); 
+						found = true;
+					} 
+				}
+			}	
+			if (!found){
+				System.out.println("not onboard");
+			}
+		}
+	}
+}
