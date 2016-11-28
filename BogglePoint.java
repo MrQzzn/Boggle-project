@@ -1,4 +1,4 @@
-public class BogglePoint {
+public class BogglePoint { //Point class 
 
 	public int x;
 	public int y;
