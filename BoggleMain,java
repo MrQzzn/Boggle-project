@@ -1,7 +1,6 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
-public class BoggleMain {
+public class BoggleMain { // Winston's main to test onBoard function
 
 	public static void main(String[] args) {
 		BoggleBoard board = new BoggleBoard();
@@ -13,19 +12,9 @@ public class BoggleMain {
 			if (input.length() < 1){
 				return;
 			}
-			boolean found = false;
-			for (int i = 0; i < 4; i ++){
-				for (int j = 0; j < 4 && !found; j ++){
-					BogglePoint point = new BogglePoint(i,j);
-					int pos = 0;
-					char[] word = input.toCharArray();
-					if (board.onBoard(point, word, pos)){
-						System.out.println("onboard"); 
-						found = true;
-					} 
-				}
-			}	
-			if (!found){
+			if (board.onBoard(input)){
+				System.out.println("onboard");
+			} else {
 				System.out.println("not onboard");
 			}
 		}
