@@ -7,9 +7,9 @@ public class BoggleBoard {
 		makeBoard();
 	}
 
-	char[][] board = new char[4][4];
+	private char[][] board = new char[4][4];
 
-	public void makeBoard() {
+	private void makeBoard() {
 		char[] vowels = new char[] { 'a', 'e', 'i', 'o', 'u' };
 		Random x = new Random();
 		for (int i = 0; i < board.length; i++) {
@@ -32,10 +32,23 @@ public class BoggleBoard {
 			System.out.println("");
 		}
 	}
-
-	boolean[][] visited = new boolean[4][4]; 
 	
-	public boolean onBoard(BogglePoint point, char[] word, int pos) { 
+	public boolean onBoard(String word){
+		for (int i = 0; i < board.length; i ++){
+			for (int j = 0; j < board[i].length; j ++){
+				boolean[][] visited = new boolean[4][4]; 
+				BogglePoint point = new BogglePoint(i, j);
+				int pos = 0;
+				if (onBoard_Internal(point, word.toCharArray(), pos, visited)){
+					return true;
+				} 
+			}
+		}
+		return false;
+	}
+	
+	
+	private boolean onBoard_Internal(BogglePoint point, char[] word, int pos, boolean[][] visited) { 
 		if (board[point.x][point.y] != word[pos]){
 			return false;
 		}
@@ -48,7 +61,7 @@ public class BoggleBoard {
 		for (int i = 0; i < points.length; i ++){
 			BogglePoint nextPoint = points[i];
 			if (nextPoint != null){
-				if (!visited[nextPoint.x][nextPoint.y] && onBoard(nextPoint, word, pos)){
+				if (!visited[nextPoint.x][nextPoint.y] && onBoard_Internal(nextPoint, word, pos, visited)){
 					return true;
 				}
 			}
@@ -57,7 +70,7 @@ public class BoggleBoard {
 		return false;
 	}
 	
-	public BogglePoint[] getAdjacent(BogglePoint point){
+	private BogglePoint[] getAdjacent(BogglePoint point){
 		BogglePoint[] adjacent = new BogglePoint[8];
 		for (int i = 0; i < adjacent.length; i ++){
 			adjacent[i] = null;
